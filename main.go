@@ -3,6 +3,7 @@ package acxes
 import (
 	"os"
 
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -44,27 +45,27 @@ func (data *credential) iniTokens() {
 	data.host = "none"
 }
 
-//AccessLocal for accesing local database
+// AccessLocal for accesing local database
 func Local() (*sqlx.DB, error) {
 	return access(localhost)
 }
 
-//AccessLocalFor temp access for local network
+// AccessLocalFor temp access for local network
 func LocalFor(database string) (*sqlx.DB, error) {
 	return accessForDatabase("localhost", database)
 }
 
-//AccessRemote for local network server
+// AccessRemote for local network server
 func Remote() (*sqlx.DB, error) {
 	return access(remoteInternalHost)
 }
 
-//AccessRemoteOutside for static ISP provider IP adress
+// AccessRemoteOutside for static ISP provider IP adress
 func RemoteOutside() (*sqlx.DB, error) {
 	return access(remoteHost)
 }
 
-//AccessFor any ip
+// AccessFor any ip
 func For(host string) (*sqlx.DB, error) {
 	ip = host
 	return access(customHost)
